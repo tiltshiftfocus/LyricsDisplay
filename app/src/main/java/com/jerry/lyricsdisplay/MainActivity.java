@@ -9,9 +9,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.beaglebuddy.mp3.MP3;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ObservableScrollView;
 
 import java.io.IOException;
 
@@ -19,10 +22,12 @@ public class MainActivity extends ActionBarActivity {
     public static final String NO_LYRICS_FOUND = "No lyrics found in tag UNSYNCEDLYRICS";
     private static int READ_REQUEST_CODE = 102;
 
+    private ObservableScrollView observableScrollView;
     private Toolbar toolbar;
     private TextView textView1;
     private TextView songTitle;
-    private Button audioChooser;
+    //private Button audioChooser;
+    private FloatingActionButton audioChooserFab;
     private Context mainContext;
 
     @Override
@@ -32,10 +37,14 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+
+        observableScrollView = (ObservableScrollView) findViewById(R.id.scroll_view);
         textView1 = (TextView) findViewById(R.id.text1);
         songTitle = (TextView) findViewById(R.id.song_title);
-        audioChooser = (Button) findViewById(R.id.choose_audio);
         mainContext = this.getApplicationContext();
+
+        audioChooserFab = (FloatingActionButton) findViewById(R.id.fab);
+        audioChooserFab.attachToScrollView(observableScrollView);
 
         /*IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.android.music.metachanged");

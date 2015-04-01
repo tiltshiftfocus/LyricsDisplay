@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,9 +7,9 @@
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
+        layout="@layout/app_bar"></include>
 
-    <Button
+    <!--Button
         android:id="@+id/choose_audio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,31 +17,51 @@
         android:layout_centerHorizontal="true"
         android:onClick="chooseAudio"
         android:padding="6dp"
-        android:text="@string/choose" />
+        android:text="@string/choose" /-->
 
     <TextView
         android:id="@+id/song_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/choose_audio"
+        android:layout_below="@id/app_bar"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/song_title"
         android:textSize="18sp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <FrameLayout
         android:layout_below="@id/song_title"
-        android:paddingTop="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text1"
+        <com.melnykov.fab.ObservableScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/song_title"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/hello_world"
+                android:textSize="18sp" />
+        </com.melnykov.fab.ObservableScrollView>
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/hello_world"
-            android:textSize="18sp" />
-    </ScrollView>
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_new_content"
+            android:onClick="chooseAudio"
+            fab:fab_colorNormal="?attr/colorPrimary"
+            fab:fab_colorPressed="?attr/colorPrimaryDark"
+            fab:fab_colorRipple="@color/ripple" />
+
+    </FrameLayout>
 
 </RelativeLayout>
