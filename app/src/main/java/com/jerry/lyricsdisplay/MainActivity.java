@@ -37,10 +37,9 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-
         observableScrollView = (ObservableScrollView) findViewById(R.id.scroll_view);
-        textView1 = (TextView) findViewById(R.id.text1);
-        songTitle = (TextView) findViewById(R.id.song_title);
+        textView1 = (TextView) findViewById(R.id.lyric_cardview);
+        songTitle = (TextView) findViewById(R.id.song_title_card);
         mainContext = this.getApplicationContext();
 
         audioChooserFab = (FloatingActionButton) findViewById(R.id.fab);
