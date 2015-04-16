@@ -5,4 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="choose">Choose Music/Song</string>
     <string name="song_title">Music/Song Title</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="author">JERRY</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 </resources>
+
