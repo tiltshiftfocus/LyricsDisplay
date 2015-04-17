@@ -26,7 +26,6 @@ import java.io.IOException;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
-    public static final String NO_LYRICS_FOUND = "No lyrics found in tag UNSYNCEDLYRICS";
     private static int READ_REQUEST_CODE = 102;
 
     private ObservableScrollView observableScrollView;
@@ -85,7 +84,7 @@ public class MainFragment extends Fragment {
                 textView1.setText(lyric);
             } else {
                 songTitle.setText(title);
-                textView1.setText(NO_LYRICS_FOUND);
+                textView1.setText(getResources().getString(R.string.no_lyric_found));
             }
 
 
