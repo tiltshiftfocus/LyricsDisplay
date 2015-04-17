@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.beaglebuddy.mp3.MP3;
+import com.jerry.lyricsdisplay.Mp3Singleton;
 import com.jerry.lyricsdisplay.R;
 import com.jerry.lyricsdisplay.URIGetter;
 import com.melnykov.fab.FloatingActionButton;
@@ -34,6 +35,7 @@ public class MainFragment extends Fragment {
     private FloatingActionButton audioChooserFab;
     private Context mainContext;
 
+    private Mp3Singleton mp3 = Mp3Singleton.getInstance();
 
     public MainFragment() {
     }
@@ -68,34 +70,29 @@ public class MainFragment extends Fragment {
         String title = null;
         String lyric = null;
 
-
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 uri = data.getData();
             }
 
             path = URIGetter.getPath(mainContext, uri);
+            mp3.setMp3(path);
 
-            try {
-                MP3 mp3 = new MP3(path);
-                title = mp3.getTitle();
-                lyric = mp3.getLyrics();
-                if(lyric!=null && title!=null){
-                    songTitle.setText(title);
-                    textView1.setText(lyric);
-                }else {
-                    songTitle.setText(title);
-                    textView1.setText(NO_LYRICS_FOUND);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            title = mp3.getTitle();
+            lyric = mp3.getLyric();
+            if (lyric != null && title != null) {
+                songTitle.setText(title);
+                textView1.setText(lyric);
+            } else {
+                songTitle.setText(title);
+                textView1.setText(NO_LYRICS_FOUND);
             }
+
 
         }
     }
 
-    public void chooseAudio(View view){
+    public void chooseAudio(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("audio/*");

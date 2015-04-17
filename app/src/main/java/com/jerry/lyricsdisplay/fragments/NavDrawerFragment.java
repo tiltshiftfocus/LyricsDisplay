@@ -30,7 +30,7 @@ public class NavDrawerFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstance){
+    public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         mUserLearned = Boolean.valueOf(readFromPref(getActivity(), KEY_USER_LEARNED_DRAWER, "false"));
 
@@ -47,7 +47,7 @@ public class NavDrawerFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_nav_drawer, container, false);
     }
 
-    public void setUp(int fragmentID, DrawerLayout drawer, Toolbar toolbar){
+    public void setUp(int fragmentID, DrawerLayout drawer, Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentID);
 
         mDrawerLayout = drawer;
