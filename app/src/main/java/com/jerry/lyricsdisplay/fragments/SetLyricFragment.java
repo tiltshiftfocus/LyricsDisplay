@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jerry.lyricsdisplay.Mp3Singleton;
@@ -21,29 +22,31 @@ import com.melnykov.fab.ObservableScrollView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class SetLyricFragment extends Fragment {
+
+
     private static int READ_REQUEST_CODE = 102;
 
     private ObservableScrollView observableScrollView;
-    private TextView textView1;
+    private EditText editText1;
     private TextView songTitle;
     private FloatingActionButton audioChooserFab;
     private Context mainContext;
 
     private Mp3Singleton mp3 = Mp3Singleton.getInstance();
 
-    public MainFragment() {
+    public SetLyricFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_set_lyric, container, false);
 
-        observableScrollView = (ObservableScrollView) v.findViewById(R.id.scroll_view);
-        textView1 = (TextView) v.findViewById(R.id.lyric_cardview);
-        songTitle = (TextView) v.findViewById(R.id.song_title_card);
+        observableScrollView = (ObservableScrollView) v.findViewById(R.id.edit_scroll_view);
+        editText1 = (EditText) v.findViewById(R.id.set_lyric);
+        songTitle = (TextView) v.findViewById(R.id.edit_song_title_card);
         mainContext = v.getContext();
 
         audioChooserFab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -57,7 +60,7 @@ public class MainFragment extends Fragment {
 
         if (mp3.getMp3() != null) {
             songTitle.setText(mp3.getTitle());
-            textView1.setText(mp3.getLyric());
+            editText1.setText(mp3.getLyric());
         }
 
         return v;
@@ -82,10 +85,10 @@ public class MainFragment extends Fragment {
             lyric = mp3.getLyric();
             if (lyric != null && title != null) {
                 songTitle.setText(title);
-                textView1.setText(lyric);
+                editText1.setText(lyric);
             } else {
                 songTitle.setText(title);
-                textView1.setText(getResources().getString(R.string.no_lyric_found));
+                editText1.setText(getResources().getString(R.string.no_lyric_found));
             }
 
 

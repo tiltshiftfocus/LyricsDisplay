@@ -1,16 +1,20 @@
 package com.jerry.lyricsdisplay.fragments;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.jerry.lyricsdisplay.R;
 
@@ -24,7 +28,11 @@ public class NavDrawerFragment extends Fragment {
 
     private boolean mUserLearned;
     private boolean mFromSavedState;
+
     private View containerView;
+    private ListView listViewChoices;
+
+    private String[] choices;
 
     public NavDrawerFragment() {
     }
@@ -37,6 +45,8 @@ public class NavDrawerFragment extends Fragment {
         if (savedInstance != null) {
             mFromSavedState = true;
         }
+
+        choices = getActivity().getResources().getStringArray(R.array.nav_drawer_choices);
     }
 
 
@@ -68,7 +78,6 @@ public class NavDrawerFragment extends Fragment {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-                //getActivity().setTitle(getText(R.string.title_activity_drawer));
             }
 
         };
@@ -91,6 +100,39 @@ public class NavDrawerFragment extends Fragment {
             }
         });
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.choices_list, choices);
+        listViewChoices = (ListView) containerView.findViewById(R.id.navdrawer_listview1);
+        listViewChoices.setAdapter(adapter);
+        listViewChoices.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        listViewChoices.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        // update the main content by replacing fragments
+        Fragment fragment = new MainFragment();
+        switch(position){
+            case 0:
+                fragment = new MainFragment();
+                break;
+            case 1:
+                fragment = new SetLyricFragment();
+                break;
+        }
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.drawer_relativelayout, fragment).commit();
+
+        // update selected item and title, then close the drawer
+        listViewChoices.setItemChecked(position, true);
+        getActivity().setTitle(choices[listViewChoices.getCheckedItemPosition()]);
+        mDrawerLayout.closeDrawer(containerView);
     }
 
 

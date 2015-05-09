@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="4dp"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <TextView
+            android:id="@+id/edit_song_title_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:text="@string/song_title"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/edit_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/edit_song_title_card"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.melnykov.fab.ObservableScrollView
+            android:id="@+id/edit_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/edit_divider"
+            android:paddingTop="8dp">
+
+            <EditText
+                android:id="@+id/set_lyric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/hello_world"
+                android:textSize="18sp" />
+
+        </com.melnykov.fab.ObservableScrollView>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

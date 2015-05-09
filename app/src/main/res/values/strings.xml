@@ -11,5 +11,10 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="no_lyric_found">No lyrics found in tag UNSYNCEDLYRICS</string>
+
+    <string-array name="nav_drawer_choices">
+        <item>Lyrics Display</item>
+        <item>Lyrics Setter</item>
+    </string-array>
 </resources>
 

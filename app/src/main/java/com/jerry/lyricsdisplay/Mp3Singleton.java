@@ -51,4 +51,12 @@ public class Mp3Singleton {
     public void setLyric(String lyric) {
         this.lyric = lyric;
     }
+
+    public MP3 getMp3() {
+        return mp3;
+    }
+
+    public void setMp3(MP3 mp3) {
+        this.mp3 = mp3;
+    }
 }

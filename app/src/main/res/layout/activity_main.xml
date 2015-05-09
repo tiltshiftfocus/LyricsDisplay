@@ -15,12 +15,10 @@
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar">
 
-        <fragment
-            android:id="@+id/main_fragment"
+        <RelativeLayout
+            android:id="@+id/drawer_relativelayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.jerry.lyricsdisplay.fragments.MainFragment"
-            tools:layout="@layout/fragment_main"/>
+            android:layout_height="match_parent"/>
 
         <fragment
             android:id="@+id/nav_drawer1"
