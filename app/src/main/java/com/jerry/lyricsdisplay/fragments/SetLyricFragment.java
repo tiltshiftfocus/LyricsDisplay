@@ -8,16 +8,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jerry.lyricsdisplay.Mp3Singleton;
 import com.jerry.lyricsdisplay.R;
 import com.jerry.lyricsdisplay.URIGetter;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ObservableScrollView;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +49,7 @@ public class SetLyricFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_set_lyric, container, false);
+        setHasOptionsMenu(true);
 
         observableScrollView = (ObservableScrollView) v.findViewById(R.id.edit_scroll_view);
         editText1 = (EditText) v.findViewById(R.id.set_lyric);
@@ -64,6 +71,32 @@ public class SetLyricFragment extends Fragment {
         }
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_setlyric, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.saveBtn:
+                String lyricsToSet = String.valueOf(editText1.getText());
+                mp3.getMp3().setLyrics(lyricsToSet);
+                try {
+                    mp3.getMp3().save();
+                    Toast.makeText(getActivity(), "Lyrics Saved!", Toast.LENGTH_SHORT);
+                } catch (IOException e) {
+                    Toast.makeText(getActivity(),"Lyrics Save Failed!", Toast.LENGTH_SHORT);
+                }
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
     @Override
