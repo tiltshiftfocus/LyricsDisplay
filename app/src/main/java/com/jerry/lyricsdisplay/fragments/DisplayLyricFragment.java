@@ -21,7 +21,7 @@ import com.melnykov.fab.ObservableScrollView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class DisplayLyricFragment extends Fragment {
     private static int READ_REQUEST_CODE = 102;
 
     private ObservableScrollView observableScrollView;
@@ -30,9 +30,9 @@ public class MainFragment extends Fragment {
     private FloatingActionButton audioChooserFab;
     private Context mainContext;
 
-    private Mp3Singleton mp3 = Mp3Singleton.getInstance();
+    private Mp3Singleton mp3Singleton = Mp3Singleton.getInstance();
 
-    public MainFragment() {
+    public DisplayLyricFragment() {
     }
 
     @Override
@@ -55,9 +55,9 @@ public class MainFragment extends Fragment {
             }
         });
 
-        if (mp3.getMp3() != null) {
-            songTitle.setText(mp3.getTitle());
-            textView1.setText(mp3.getLyric());
+        if (mp3Singleton.getMp3() != null) {
+            songTitle.setText(mp3Singleton.getTitle());
+            textView1.setText(mp3Singleton.getLyric());
         }
 
         return v;
@@ -76,10 +76,10 @@ public class MainFragment extends Fragment {
             }
 
             path = URIGetter.getPath(mainContext, uri);
-            mp3.setMp3(path);
+            mp3Singleton.setMp3(path);
 
-            title = mp3.getTitle();
-            lyric = mp3.getLyric();
+            title = mp3Singleton.getTitle();
+            lyric = mp3Singleton.getLyric();
             if (lyric != null && title != null) {
                 songTitle.setText(title);
                 textView1.setText(lyric);

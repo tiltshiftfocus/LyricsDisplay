@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.beaglebuddy.mp3.MP3;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Mp3Singleton {
@@ -13,6 +12,7 @@ public class Mp3Singleton {
     private MP3 mp3;
     private String title;
     private String lyric;
+    private String mp3Path;
 
     private Mp3Singleton() {
     }
@@ -25,6 +25,7 @@ public class Mp3Singleton {
     }
 
     public MP3 setMp3(String path) {
+        mp3Path = path;
         try {
             mp3 = new MP3(path);
             setTitle(mp3.getTitle());
@@ -58,5 +59,10 @@ public class Mp3Singleton {
 
     public void setMp3(MP3 mp3) {
         this.mp3 = mp3;
+    }
+
+    public void reloadMp3() {
+        setTitle(mp3.getTitle());
+        setLyric(mp3.getLyrics());
     }
 }

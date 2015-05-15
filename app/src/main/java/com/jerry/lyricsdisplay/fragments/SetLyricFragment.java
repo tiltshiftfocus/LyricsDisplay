@@ -39,7 +39,7 @@ public class SetLyricFragment extends Fragment {
     private FloatingActionButton audioChooserFab;
     private Context mainContext;
 
-    private Mp3Singleton mp3 = Mp3Singleton.getInstance();
+    private Mp3Singleton mp3Singleton = Mp3Singleton.getInstance();
 
     public SetLyricFragment() {
     }
@@ -65,9 +65,9 @@ public class SetLyricFragment extends Fragment {
             }
         });
 
-        if (mp3.getMp3() != null) {
-            songTitle.setText(mp3.getTitle());
-            editText1.setText(mp3.getLyric());
+        if (mp3Singleton.getMp3() != null) {
+            songTitle.setText(mp3Singleton.getTitle());
+            editText1.setText(mp3Singleton.getLyric());
         }
 
         return v;
@@ -83,15 +83,7 @@ public class SetLyricFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.saveBtn:
-                String lyricsToSet = String.valueOf(editText1.getText());
-                mp3.getMp3().setLyrics(lyricsToSet);
-                try {
-                    mp3.getMp3().save();
-                    Toast.makeText(getActivity(), "Lyrics Saved!", Toast.LENGTH_SHORT);
-                } catch (IOException e) {
-                    Toast.makeText(getActivity(),"Lyrics Save Failed!", Toast.LENGTH_SHORT);
-                }
-
+                saveLyrics();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -99,12 +91,27 @@ public class SetLyricFragment extends Fragment {
 
     }
 
+    private void saveLyrics() {
+        try {
+            if (mp3Singleton.getMp3() == null) {
+                Toast.makeText(getActivity(), "No Music/Song Loaded!", Toast.LENGTH_SHORT).show();
+            } else {
+                mp3Singleton.getMp3().setLyrics(String.valueOf(editText1.getText()));
+                mp3Singleton.getMp3().save();
+                mp3Singleton.reloadMp3();
+                Toast.makeText(getActivity(), "Lyrics Saved!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            Toast.makeText(getActivity(),"Lyrics Save Failed!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri uri = null;
-        String path = null;
         String title = null;
         String lyric = null;
+        String path = null;
 
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
@@ -112,10 +119,10 @@ public class SetLyricFragment extends Fragment {
             }
 
             path = URIGetter.getPath(mainContext, uri);
-            mp3.setMp3(path);
+            mp3Singleton.setMp3(path);
 
-            title = mp3.getTitle();
-            lyric = mp3.getLyric();
+            title = mp3Singleton.getTitle();
+            lyric = mp3Singleton.getLyric();
             if (lyric != null && title != null) {
                 songTitle.setText(title);
                 editText1.setText(lyric);

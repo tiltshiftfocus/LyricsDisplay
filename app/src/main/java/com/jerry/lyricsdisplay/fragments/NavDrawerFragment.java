@@ -116,10 +116,10 @@ public class NavDrawerFragment extends Fragment {
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = new MainFragment();
+        Fragment fragment = new DisplayLyricFragment();
         switch(position){
             case 0:
-                fragment = new MainFragment();
+                fragment = new DisplayLyricFragment();
                 break;
             case 1:
                 fragment = new SetLyricFragment();
